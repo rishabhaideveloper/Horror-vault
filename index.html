@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rishabh's Horror Vault</title>
+   <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to right, #000000, #1a1a1a);
+      color: #e60000;
+      font-family: 'Orbitron', sans-serif;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      font-size: 2rem;
+      color: #ff0000;
+      text-shadow: 0 0 10px #ff0000;
+      font-family: 'Cinzel Decorative', cursive;
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .input-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    input[type="text"] {
+      padding: 1rem;
+      width: 60%;
+      font-size: 1.2rem;
+      background-color: #111;
+      color: #fff;
+      border: 2px solid #e60000;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      margin-left: 1rem;
+      font-size: 1rem;
+      background: #e60000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff1a1a;
+    }
+
+    .vault {
+      display: none;
+      margin: 3rem auto;
+      width: 90%;
+      max-width: 1000px;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 2rem;
+      border: 2px solid #e60000;
+      border-radius: 12px;
+      box-shadow: 0 0 30px #e60000;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    
+    table, th, td {
+  font-family: 'Creepster';
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #e60000;
+      text-align: left;
+    }
+
+    th {
+      background-color: #330000;
+      color: #ff4d4d;
+    }
+
+    tr:nth-child(even) {
+      background-color: #1a1a1a;
+    }
+
+    tr:hover {
+      background-color: #330000;
+    }
+  </style>
+</head>
+<body>
+  <header>Rishabh's Ultimate Horror Vault</header>
+
+  <div class="input-section">
+    <input type="text" id="username" placeholder="Enter your name...">
+    <button onclick="revealVault()">Unlock Vault</button>
+  </div>
+
+  <div class="vault" id="vault">
+    <h2>Welcome, <span id="nameDisplay"></span></h2>
+    <p>Here is your diabolical horror list:</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Movie Title</th><th>Category</th></tr>
+      </thead>
+      <tbody id="movieTable">
+        <!-- Movie list will populate here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const movies = [
+  { title: "Sinister (all parts)", category: "You’ve Survived This Nightmare" },
+  { title: "Insidious (All Parts)", category: "You’ve Survived This Nightmare" },
+  { title: "The Conjuring (All Parts & Universe)", category: "You’ve Survived This Nightmare" },
+  { title: "Hereditary", category: "You’ve Survived This Nightmare" },
+  { title: "Paranormal Activity (Series)", category: "You’ve Survived This Nightmare" },
+  { title: "The Exorcist (1973 & Remakes)", category: "You’ve Survived This Nightmare" },
+  { title: "It Follows", category: "You’ve Survived This Nightmare" },
+  { title: "Lights Out", category: "You’ve Survived This Nightmare" },
+  { title: "The Ring (Ringu + Hollywood)", category: "You’ve Survived This Nightmare" },
+  { title: "The Nun", category: "You’ve Survived This Nightmare" },
+  { title: "Terrified / Aterrados", category: "You’ve Survived This Nightmare" },
+  { title: "Martyrs", category: "You’ve Survived This Nightmare" },
+  { title: "Shadow", category: "You’ve Survived This Nightmare" },
+  { title: "Solo", category: "You’ve Survived This Nightmare" },
+  { title: "The Monkey (2025)", category: "You’ve Survived This Nightmare" },
+  { title: "IT (Chapter One & Two)", category: "You’ve Survived This Nightmare" },
+  { title: "The Dark and the Wicked", category: "The Forgotten Ones Still Whisper..." },
+  { title: "Lake Mungo", category: "The Forgotten Ones Still Whisper..." },
+  { title: "Noroi: The Curse", category: "The Forgotten Ones Still Whisper..." },
+  { title: "The Wailing (Gokseong)", category: "The Forgotten Ones Still Whisper..." },
+  { title: "Possum (2018)", category: "The Forgotten Ones Still Whisper..." },
+  { title: "Eden Lake", category: "The Forgotten Ones Still Whisper..." },
+  { title: "Hellhole (2022)", category: "The Forgotten Ones Still Whisper..." },
+  { title: "Tumbbad", category: "The Forgotten Ones Still Whisper..." },
+  { title: "Longlegs (2024)", category: "The Darkness is Still Unfolding..." },
+  { title: "Talk to Me (2023)", category: "The Darkness is Still Unfolding..." },
+  { title: "Cobweb (2023)", category: "The Darkness is Still Unfolding..." },
+  { title: "Late Night with the Devil (2024)", category: "The Darkness is Still Unfolding..." },
+  { title: "Baghead (2024)", category: "The Darkness is Still Unfolding..." },
+  { title: "Smile 2 (2024)", category: "The Darkness is Still Unfolding..." }
+];
+
+    function revealVault() {
+      const name = document.getElementById("username").value.trim();
+      if (!name) return alert("Please enter your name, brave one.");
+      document.getElementById("nameDisplay").innerText = name;
+      const tableBody = document.getElementById("movieTable");
+      tableBody.innerHTML = "";
+
+      movies.forEach((movie, index) => {
+        const row = `<tr><td>${index + 1}</td><td>${movie.title}</td><td>${movie.category}</td></tr>`;
+        tableBody.innerHTML += row;
+      });
+
+      document.getElementById("vault").style.display = "block";
+    }
+  </script>
+</body>
+</html>
