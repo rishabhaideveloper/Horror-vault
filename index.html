@@ -54,30 +54,113 @@
       margin-top: 2rem;
     }
 
-    input[type="text"] {
+    /* Futuristic Input Field */
+    .futuristic-input {
+      position: relative;
       padding: 1rem;
       width: 60%;
       font-size: 1.2rem;
-      background-color: #111;
-      color: #fff;
-      border: 2px solid #e60000;
+      font-family: 'Orbitron', sans-serif;
+      background-color: rgba(15, 15, 26, 0.7);
+      color: #00f0ff;
+      border: 2px solid #00f0ff;
       border-radius: 8px;
+      box-shadow: 
+        0 0 10px rgba(0, 240, 255, 0.3),
+        inset 0 0 10px rgba(0, 240, 255, 0.1);
+      transition: all 0.3s ease;
+      outline: none;
     }
 
-    button {
+    .futuristic-input:focus {
+      border-color: #00ffff;
+      box-shadow: 
+        0 0 15px rgba(0, 240, 255, 0.5),
+        inset 0 0 15px rgba(0, 240, 255, 0.2);
+      background-color: rgba(15, 15, 26, 0.9);
+    }
+
+    .futuristic-input::placeholder {
+      color: #00aaff;
+      opacity: 0.7;
+      letter-spacing: 1px;
+    }
+
+    .futuristic-input:hover {
+      box-shadow: 
+        0 0 15px rgba(0, 240, 255, 0.5),
+        inset 0 0 10px rgba(0, 240, 255, 0.2);
+    }
+
+    /* Futuristic Button Styles */
+    .futuristic-btn {
+      position: relative;
       padding: 1rem 2rem;
       margin-left: 1rem;
       font-size: 1rem;
-      background: #e60000;
-      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+      color: #00f0ff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 0 10px rgba(0, 240, 255, 0.5),
+        0 0 20px rgba(0, 120, 255, 0.3),
+        inset 0 0 10px rgba(0, 240, 255, 0.2);
+      text-shadow: 0 0 5px rgba(0, 240, 255, 0.8);
+      overflow: hidden;
     }
 
-    button:hover {
-      background: #ff1a1a;
+    .futuristic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 0 15px rgba(0, 240, 255, 0.8),
+        0 0 30px rgba(0, 120, 255, 0.5),
+        inset 0 0 15px rgba(0, 240, 255, 0.3);
+      color: #00ffff;
+    }
+
+    .futuristic-btn:active {
+      transform: translateY(1px);
+    }
+
+    .futuristic-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(0, 240, 255, 0.3) 50%,
+        transparent 55%
+      );
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+
+    .futuristic-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 2px solid #00f0ff;
+      border-radius: 6px;
+      opacity: 0.5;
+      pointer-events: none;
     }
 
     .vault {
@@ -98,19 +181,18 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ONLY THESE LINES CHANGED FOR FONT */
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 2rem;
-      font-family: 'Cinzel Decorative', cursive; /* CHANGED FONT */
+      font-family: 'Cinzel Decorative', cursive;
     }
 
     th, td {
       padding: 1rem;
       border: 1px solid #e60000;
       text-align: left;
-      font-family: inherit; /* Inherits Cinzel Decorative */
+      font-family: inherit;
     }
 
     th {
@@ -131,15 +213,14 @@
       background-color: #330000;
     }
 
-    /* Column Width Adjustments */
     th:nth-child(1), td:nth-child(1) {
-      width: 10%; /* For serial number */
+      width: 10%;
     }
     th:nth-child(2), td:nth-child(2) {
-      width: 60%; /* For movie title */
+      width: 60%;
     }
     th:nth-child(3), td:nth-child(3) {
-      width: 30%; /* For category */
+      width: 30%;
     }
 
     .diabolical-footer {
@@ -192,13 +273,12 @@
       to { color: #ff6666; letter-spacing: 4px; }
     }
 
-    /* Mobile Responsiveness */
     @media screen and (max-width: 768px) {
-      input[type="text"] {
+      .futuristic-input {
         width: 80%;
       }
       
-      button {
+      .futuristic-btn {
         margin-top: 1rem;
         margin-left: 0;
         width: 80%;
@@ -214,7 +294,6 @@
         font-size: 0.85rem;
       }
       
-      /* Adjust column widths for mobile */
       th:nth-child(1), td:nth-child(1) {
         width: 15%;
       }
@@ -234,14 +313,17 @@
   </header>
 
   <div class="input-section">
-    <input type="text" id="username" placeholder="Enter your name...">
-    <button onclick="revealVault()">Unlock Vault</button>
+    <input type="text" id="username" class="futuristic-input" placeholder="ENTER YOUR NAME...">
+    <button class="futuristic-btn" onclick="revealVault()">UNLOCK VAULT</button>
   </div>
 
   <div class="vault" id="vault">
     <h2>Welcome, <span id="nameDisplay"></span></h2>
     <p>Here is your diabolical horror list:</p>
     <table>
+      <video id="horrorVideo" autoplay playsinline loop controls poster="rk.jpg" width="100%" style="max-width: 800px; display: block; margin: 2rem auto; border: 3px solid #e60000; border-radius: 10px; box-shadow: 0 0 20px red;">
+        <source src="horror.mp4" type="video/mp4">
+      </video>
       <thead>
         <tr><th>#</th><th>Movie Title</th><th>Category</th></tr>
       </thead>
@@ -252,7 +334,7 @@
   </div>
 
   <footer class="diabolical-footer">
-    <p>© Rishabh's Vault — <span class="curse-line">Once Unlocked, It Never Closes...</span></p>
+    <p>© 2025 || Rishabh's Vault — <span class="curse-line">Once Unlocked, It Never Closes...</span></p>
     <div class="blood-drip" style="left: 20%;"></div>
     <div class="blood-drip" style="left: 35%; animation-delay: 0.5s;"></div>
     <div class="blood-drip" style="left: 50%; animation-delay: 1s;"></div>
@@ -311,9 +393,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-    
